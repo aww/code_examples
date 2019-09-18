@@ -62,3 +62,20 @@ def ridgeline(df, value, clip=None):
         g.axes[-1,1].set_xlabel(value)
         g.despine(bottom=True, left=True)
         return g
+    
+#
+# Draw a vertical line in data coordinaters and label it with vertical text
+#
+# This shows how to position text by data coordinates in one direction
+# and 0-1 axis coordinates in the other direction.
+#
+import matplotlib.transforms as transforms
+def axvline_label(ax, label, xpos, ypos=0.5, **kwargs):
+    line_params = dict(color='black', linewidth=2, alpha=ypos, linestyle='--')
+    line_params.update(**kwargs)
+    ax.axvline(xpos, **line_params)
+    ax.text(xpos, ypos, label,
+            transform=transforms.blended_transform_factory(ax.transData, ax.transAxes),
+            rotation=90,
+            verticalalignment='center'
+           )
