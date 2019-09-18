@@ -20,6 +20,7 @@ ax.yaxis.set_major_formatter(ticker.PercentFormatter(xmax=1))
 # 
 # This assumes the rows are temporal, specifically "semiday" in this case,
 # and there is more than one column defined by "treatment" in this case.
+# The histogram data comes from df[value].
 #
 import seaborn as sns
 def ridgeline(df, value, clip=None):
@@ -57,7 +58,7 @@ def ridgeline(df, value, clip=None):
         # Remove axes details that don't play well with overlap
         g.set_titles(row_template="", template="")
         g.set(yticks=[])
-        g.axes[-1,0].set_xlabel('Pace')
-        g.axes[-1,1].set_xlabel('Pace')
+        g.axes[-1,0].set_xlabel(value)
+        g.axes[-1,1].set_xlabel(value)
         g.despine(bottom=True, left=True)
         return g
